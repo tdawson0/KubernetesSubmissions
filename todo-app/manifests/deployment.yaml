@@ -16,7 +16,10 @@ spec:
     spec:
       containers:
         - name: todo-app
-          image: thomasdawson/todo-app:1.2
+          image: thomasdawson/todo-app:1.5
+          env:
+            - name: PORT
+              value: "3000"
           resources:
             limits:
               memory: "128Mi"
