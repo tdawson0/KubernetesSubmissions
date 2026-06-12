@@ -16,12 +16,15 @@ spec:
     spec:
       volumes:
         - name: shared-volume
+          persistentVolumeClaim:
+            claimName: shared-pv-claim
+        - name: log-volume
           emptyDir: {}
       containers:
         - name: log-writer
           image: thomasdawson/log-writer:1.10
           volumeMounts:
-            - name: shared-volume
+            - name: log-volume
               mountPath: /app/logs
           resources:
             limits:
@@ -31,10 +34,12 @@ spec:
               memory: "64Mi"
               cpu: "250m"
         - name: log-reader
-          image: thomasdawson/log-reader:1.10
+          image: thomasdawson/log-reader:1.11.2
           volumeMounts:
-            - name: shared-volume
+            - name: log-volume
               mountPath: /app/logs
+            - name: shared-volume
+              mountPath: /app/data
           env:
             - name: PORT
               value: "3000"
