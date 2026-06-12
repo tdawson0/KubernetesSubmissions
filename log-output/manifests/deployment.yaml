@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: log-output
+  name: log-output-dep
   labels:
     app: log-output
 spec:
@@ -14,9 +14,27 @@ spec:
       labels:
         app: log-output
     spec:
+      volumes:
+        - name: shared-volume
+          emptyDir: {}
       containers:
-        - name: log-output
-          image: thomasdawson/log-output:1.7
+        - name: log-writer
+          image: thomasdawson/log-writer:1.10
+          volumeMounts:
+            - name: shared-volume
+              mountPath: /app/logs
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+        - name: log-reader
+          image: thomasdawson/log-reader:1.10
+          volumeMounts:
+            - name: shared-volume
+              mountPath: /app/logs
           env:
             - name: PORT
               value: "3000"
