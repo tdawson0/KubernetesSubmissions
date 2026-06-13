@@ -15,9 +15,6 @@ spec:
         app: log-output
     spec:
       volumes:
-        - name: shared-volume
-          persistentVolumeClaim:
-            claimName: shared-pv-claim
         - name: log-volume
           emptyDir: {}
       containers:
@@ -34,12 +31,10 @@ spec:
               memory: "64Mi"
               cpu: "250m"
         - name: log-reader
-          image: thomasdawson/log-reader:1.11.2
+          image: thomasdawson/log-reader:2.1
           volumeMounts:
             - name: log-volume
               mountPath: /app/logs
-            - name: shared-volume
-              mountPath: /app/data
           env:
             - name: PORT
               value: "3000"
