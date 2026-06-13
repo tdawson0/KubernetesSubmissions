@@ -15,7 +15,16 @@
 		<container>
 			<h1>Todo App</h1>
 			<img id="todo-image" src="/image.jpg" alt="Todo App image">
-			<p>DevOps with Kubernetes 2026</p>
+            <div>
+                <input type="text" placeholder="Enter a new todo (max 140 characters)" maxlength="140" id="todo-input">
+                <button id="add-todo">Send</button>
+            </div>
+            <h2>Todos</h2>
+            <ul id="todo-list">
+                <li>Learn Kubernetes basics</li>
+                <li>Deploy application to cluster</li>
+                <li>Configure persistent volumes</li>
+            </ul>
 		</container>
 	</body>
 </html>

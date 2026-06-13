@@ -3,17 +3,11 @@ const CHECK_INTERVAL = 10000; // 10 seconds
 
 const refreshImage = (timestamp) => {
     const img = document.getElementById('todo-image');
-
-    // Fade out
     img.classList.add('fade-out');
-
-    // After fade-out completes, change the image
     setTimeout(() => {
         img.src = img.src.split('?')[0] + '?' + timestamp;
-
-        // Fade back in
         img.classList.remove('fade-out');
-    }, 1000); // match CSS transition duration
+    }, 1000);
 };
 
 
@@ -26,6 +20,10 @@ const checkForUpdate = async () => {
         }
         const serverTimestamp = await response.text();
         const localTimestamp = localStorage.getItem('imageTimestamp');
+        if (localTimestamp === null) {
+            localStorage.setItem('imageTimestamp', serverTimestamp);
+            return;
+        }
         if (localTimestamp !== serverTimestamp) {
             console.log('New image available, refreshing...');
             refreshImage(serverTimestamp);
