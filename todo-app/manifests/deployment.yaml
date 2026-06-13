@@ -14,9 +14,16 @@ spec:
       labels:
         app: todo-app
     spec:
+      volumes:
+        - name: shared-pv
+          persistentVolumeClaim:
+            claimName: shared-pv-claim
       containers:
         - name: todo-app
-          image: thomasdawson/todo-app:1.5
+          image: thomasdawson/todo-app:1.12.1
+          volumeMounts:
+            - name: shared-pv
+              mountPath: /app/data
           env:
             - name: PORT
               value: "3000"
