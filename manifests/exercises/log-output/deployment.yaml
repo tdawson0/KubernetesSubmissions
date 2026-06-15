@@ -18,6 +18,12 @@ spec:
       volumes:
         - name: log-volume
           emptyDir: {}
+        - name: config-volume
+          configMap:
+            name: log-configmap
+            items:
+              - key: information.txt
+                path: information.txt
       containers:
         - name: log-writer
           image: thomasdawson/log-writer:1.10
@@ -32,13 +38,20 @@ spec:
               memory: "64Mi"
               cpu: "250m"
         - name: log-reader
-          image: thomasdawson/log-reader:2.3
+          image: thomasdawson/log-reader:2.5
           volumeMounts:
             - name: log-volume
               mountPath: /app/logs
+            - name: config-volume
+              mountPath: /app/config
           env:
             - name: PORT
               value: "3000"
+            - name: MESSAGE
+              valueFrom:
+                configMapKeyRef:
+                  name: log-configmap
+                  key: MESSAGE
           resources:
             limits:
               memory: "128Mi"
