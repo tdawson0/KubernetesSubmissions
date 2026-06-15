@@ -25,9 +25,9 @@ spec:
           volumeMounts:
             - name: shared-pv
               mountPath: /app/data
-          env:
-            - name: PORT
-              value: "3000"
+          envFrom:
+            - configMapKeyRef:
+                name: todo-app-configmap
           resources:
             limits:
               memory: "128Mi"

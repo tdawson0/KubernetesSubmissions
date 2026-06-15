@@ -1,7 +1,7 @@
 import path from 'path';
 import {mkdir, readFile, writeFile} from 'fs/promises';
 
-const IMG_URL = 'https://picsum.photos/1200';
+const IMG_URL = process.env.IMG_URL || 'https://picsum.photos/1200';
 const dataDir = path.join(import.meta.dirname, '..', 'data');
 const imagePath = path.join(dataDir, 'image.jpg');
 const timestampPath = path.join(dataDir, 'timestamp');
