@@ -14,7 +14,7 @@ app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
 
-app.get('/', async (req, res) => {
+app.get('/logs', async (req, res) => {
     try {
         const log = await readFile(logFilePath, 'utf8');
         const response = await fetch(PING_URL);

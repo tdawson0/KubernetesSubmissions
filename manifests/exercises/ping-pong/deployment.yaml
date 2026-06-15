@@ -1,29 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: todo-app
+  name: ping-pong
+  namespace: exercises
   labels:
-    app: todo-app
+    app: ping-pong
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: todo-app
+      app: ping-pong
   template:
     metadata:
       labels:
-        app: todo-app
+        app: ping-pong
     spec:
-      volumes:
-        - name: shared-pv
-          persistentVolumeClaim:
-            claimName: shared-pv-claim
       containers:
-        - name: todo-app
-          image: thomasdawson/todo-app:2.2.3
-          volumeMounts:
-            - name: shared-pv
-              mountPath: /app/data
+        - name: ping-pong
+          image: thomasdawson/ping-pong:2.1
           env:
             - name: PORT
               value: "3000"
