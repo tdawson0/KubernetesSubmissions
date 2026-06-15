@@ -1,19 +1,17 @@
 {
-  "name": "todo-app",
+  "name": "todo-backend",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "dev": "NODE_ENV=development BACKEND_URL=http://localhost:3001 nodemon index.js"
+    "dev": "PORT=3001 nodemon index.js"
   },
-  "author": "",
   "license": "ISC",
   "type": "module",
   "dependencies": {
     "express": "^5.2.1"
   },
   "devDependencies": {
-    "http-proxy-middleware": "^4.1.1",
     "nodemon": "^3.1.14"
   }
 }

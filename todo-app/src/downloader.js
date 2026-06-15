@@ -1,11 +1,14 @@
 import path from 'path';
-import {readFile, writeFile} from 'fs/promises';
+import {mkdir, readFile, writeFile} from 'fs/promises';
 
 const IMG_URL = 'https://picsum.photos/1200';
-const imagePath = path.join(import.meta.dirname, '..', 'data', 'image.jpg');
-const timestampPath = path.join(import.meta.dirname, '..', 'data', 'timestamp');
+const dataDir = path.join(import.meta.dirname, '..', 'data');
+const imagePath = path.join(dataDir, 'image.jpg');
+const timestampPath = path.join(dataDir, 'timestamp');
 const MAX_AGE = 10 * 60 * 1000; // 10 minutes
 const CHECK_INTERVAL = 10000; // 10 seconds
+
+await mkdir(dataDir, {recursive: true});
 
 const downloadImage = async () => {
     const response = await fetch(IMG_URL);

@@ -10,7 +10,6 @@ const refreshImage = (timestamp) => {
     }, 1000);
 };
 
-
 const checkForUpdate = async () => {
   console.log('Checking for image update...');
     try {
@@ -35,4 +34,7 @@ const checkForUpdate = async () => {
         console.error('Error checking for image update:', error);
     }
 };
-setInterval(checkForUpdate, CHECK_INTERVAL);
+
+export const startImageRefresher = () => {
+    setInterval(checkForUpdate, CHECK_INTERVAL);
+};

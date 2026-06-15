@@ -1,32 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: todo-app
+  name: todo-backend
   labels:
-    app: todo-app
+    app: todo-backend
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: todo-app
+      app: todo-backend
   template:
     metadata:
       labels:
-        app: todo-app
+        app: todo-backend
     spec:
-      volumes:
-        - name: shared-pv
-          persistentVolumeClaim:
-            claimName: shared-pv-claim
       containers:
-        - name: todo-app
-          image: thomasdawson/todo-app:2.2.3
-          volumeMounts:
-            - name: shared-pv
-              mountPath: /app/data
+        - name: todo-backend
+          image: thomasdawson/todo-backend:2.2
           env:
             - name: PORT
-              value: "3000"
+              value: "3001"
           resources:
             limits:
               memory: "128Mi"
